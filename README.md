@@ -36,5 +36,13 @@ Welcome to the Notes App! This application is built using Kotlin, SQL, and Jetpa
 
 The app uses a local SQLite database to store notes. The database is managed using SQL statements within the Kotlin code.
 
-## Project Structure
 
+## Contact
+
+If you have any questions or feedback, feel free to reach out to:
+
+- **Name**: Your Name
+- **Email**: your.email@example.com
+- **GitHub**: [yourusername](https://github.com/VidushiSingh56)
+
+Thank you for using the Notes App!
