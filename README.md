@@ -43,6 +43,6 @@ If you have any questions or feedback, feel free to reach out to:
 
 - **Name**: Your Name
 - **Email**: your.email@example.com
-- **GitHub**: [yourusername](https://github.com/VidushiSingh56)
+- **GitHub**: [Vidushi Singh](https://github.com/VidushiSingh56)
 
 Thank you for using the Notes App!
