@@ -1,6 +1,6 @@
 # Notes App
 
-Welcome to the Notes App! This application is built using Kotlin, SQL, and Jetpack Compose. It allows users to create, edit, delete, and manage notes with ease and efficiency.
+Welcome to the Notes App! This application is built using Kotlin, SQLite, and Jetpack Compose. It allows users to create, edit, delete, and manage notes with ease and efficiency.
 
 ## Features
 
@@ -12,7 +12,7 @@ Welcome to the Notes App! This application is built using Kotlin, SQL, and Jetpa
 ## Technologies Used
 
 - Kotlin: Primary programming language used.
-- SQL: For database management and storage of notes.
+- SQLite: For database management and storage of notes.
 - Jetpack Compose: For building the user interface.
 
 ## Installation
