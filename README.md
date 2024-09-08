@@ -9,6 +9,12 @@ Welcome to the Notes App! This application is built using Kotlin, SQLite, and Je
 - Delete Notes: Remove notes that are no longer needed.
 - View Notes: Display all notes in a list.
 
+
+## CRUD Functions
+
+![Frame 2](https://github.com/user-attachments/assets/c7cf9951-b5a3-4fe5-845a-1a1b3fda4071)
+![Frame 3](https://github.com/user-attachments/assets/a36b802d-cbc4-4b01-8955-df660356ca15)
+
 ## Technologies Used
 
 - Kotlin: Primary programming language used.
