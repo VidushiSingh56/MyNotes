@@ -1,12 +1,10 @@
 package com.example.notesjc
-
-
-
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,8 +32,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.notesjc.ui.theme.Brown
 import com.example.notesjc.ui.theme.NOTESJCTheme
-import com.example.notesjc.ui.theme.Purple40
 
 
 class MainActivity : ComponentActivity() {
@@ -58,13 +56,13 @@ class MainActivity : ComponentActivity() {
                             // inside top bar we are specifying background color.
                             TopAppBar(
                                 colors = TopAppBarDefaults.topAppBarColors(
-                                    containerColor = Purple40,
+                                    containerColor = Brown,
                                     titleContentColor = MaterialTheme.colorScheme.primary,
                                 ),
                                 title = {
 
                                     // in the top bar we are specifying tile as a text
-                                  Text(
+                                    Text(
 
                                         // on below line we are specifying
                                         // text to display in top app bar.
@@ -119,7 +117,7 @@ fun readDataToDatabase(context: Context, paddingValues: PaddingValues) {
             FloatingActionButton(onClick = {
                 val intent = Intent(context, AddNotes::class.java)
                 context.startActivity(intent)
-            }, containerColor = Purple40) {
+            }, containerColor = Brown) {
                 Icon(Icons.Default.Add, contentDescription = "Add", tint = Color.White)
             }
         }
@@ -130,8 +128,9 @@ fun readDataToDatabase(context: Context, paddingValues: PaddingValues) {
                 .padding(8.dp)
         ) {
             Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
+                modifier = Modifier.fillMaxSize(),
+
+                ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize()
                 ) {
@@ -158,19 +157,33 @@ fun readDataToDatabase(context: Context, paddingValues: PaddingValues) {
                                         textAlign = TextAlign.Start
                                     )
                                     Row {
+
+//                                        IconButton(onClick = {
+//                                            // Handle download action
+//                                            try {
+//                                                createPdf(context, item)
+//                                                Toast.makeText(context, "PDF downloaded successfully", Toast.LENGTH_SHORT).show()
+//                                            } catch (e: Exception) {
+//                                                Toast.makeText(context, "Failed to download PDF", Toast.LENGTH_SHORT).show()
+//                                            }
+//                                        }) {
+//                                            Icon(Icons.Default.ArrowDropDown, contentDescription = "Download")
+//                                        }
                                         IconButton(onClick = {
                                             // Handle edit action
-                                            val i = Intent(context, UpdateNote::class.java).apply {
+                                            val intent = Intent(context, UpdateNote::class.java).apply {
+                                                putExtra("NoteId", item.id)  // Pass the note ID for reference
                                                 putExtra("Title", item.title)
                                                 putExtra("Subject", item.subject)
                                                 putExtra("Description", item.description)
                                             }
-                                            context.startActivity(i)
-
-
+                                            Log.d("MainActivity", "Starting UpdateNote activity with ID: ${item.id}")
+                                            context.startActivity(intent)
                                         }) {
                                             Icon(Icons.Default.Edit, contentDescription = "Edit")
                                         }
+
+
                                         IconButton(onClick = {
                                             dbHandler.deleteNote(item.id)
                                             Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
@@ -208,11 +221,12 @@ fun readDataToDatabase(context: Context, paddingValues: PaddingValues) {
                     },
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                        .padding(16.dp),containerColor = Purple40
+                        .padding(16.dp),containerColor = Brown
                 ) {
-                    Icon(Icons.Default.Add, contentDescription = "Add")
+                    Icon(Icons.Default.Add, contentDescription = "Add", tint = Color.White)
                 }
             }
         }
     }
 }
+

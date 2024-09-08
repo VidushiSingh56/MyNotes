@@ -1,5 +1,6 @@
 package com.example.notesjc
 
+//import MainActivity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -39,8 +40,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.notesjc.ui.theme.Brown
 import com.example.notesjc.ui.theme.NOTESJCTheme
-import com.example.notesjc.ui.theme.Purple40
 
 
 class AddNotes : ComponentActivity() {
@@ -58,7 +59,7 @@ class AddNotes : ComponentActivity() {
                         topBar = {
                             TopAppBar(
                                 colors = TopAppBarDefaults.topAppBarColors(
-                                    containerColor = Purple40,
+                                    containerColor = Brown,
                                     titleContentColor = MaterialTheme.colorScheme.primary,
                                 ),
                                 title = {
@@ -158,14 +159,14 @@ fun addToDatabase(context: Context) {
 
                 Toast.makeText(context, "Note Added to Database", Toast.LENGTH_SHORT)
             }){
-                Text(text = "Save",color = Color.White)
+                Text(text = "Save")
             }
 
 //            Spacer(modifier = Modifier.height(15.dp))
 
             Button(onClick = { val i = Intent(context, MainActivity::class.java)
                 context.startActivity(i)
-            }) {
+            },) {
                 Text("View Notes", color = Color.White)
             }
         }

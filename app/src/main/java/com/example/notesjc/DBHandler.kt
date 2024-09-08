@@ -59,17 +59,33 @@ class DBHandler(context: Context?): SQLiteOpenHelper(context, DB_NAME, null, DB_
     }
 
 
-    fun updateNote(originalTitle: String, title: String?, subject: String?, description: String?) {
+    fun updateNote(noteId: Int, newTitle: String, newSubject: String, newDescription: String): Boolean {
         val db = this.writableDatabase
-        val values = ContentValues().apply {
-            put(TITLE_COL, title)
-            put(SUBJECT_COL, subject)
-            put(DESCRIPTION_COL, description)
-
+        val contentValues = ContentValues().apply {
+            put(TITLE_COL, newTitle)
+            put(SUBJECT_COL, newSubject)
+            put(DESCRIPTION_COL, newDescription)
         }
-        db.update(TABLE_NAME, values, "$TITLE_COL=?", arrayOf(originalTitle))
-        db.close()
+
+        // Handle cases where noteId is invalid
+        if (noteId == -1) {
+            return false
+        }
+
+        return try {
+            // Update the note where the note ID matches
+            val result = db.update(TABLE_NAME, contentValues, "$ID_COL=?", arrayOf(noteId.toString()))
+            db.close()
+
+            // Check if the update was successful
+            result > 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
+
+
 
     fun deleteNote(id: Int) {
         val db = this.writableDatabase

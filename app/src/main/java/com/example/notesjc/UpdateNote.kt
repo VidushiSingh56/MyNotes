@@ -1,10 +1,12 @@
 package com.example.notesjc
 
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,7 +28,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -59,29 +65,37 @@ class UpdateNote : ComponentActivity() {
                                     titleContentColor = MaterialTheme.colorScheme.primary,
                                 ),
                                 title = {
-                                    //
                                     Text(
                                         modifier = Modifier.fillMaxWidth(),
                                         text = "Update Notes",
-                                        //
-
                                         textAlign = TextAlign.Center,
                                         color = Color.White,
                                     )
                                 })
-                        }, content = {paddingValues ->
+                        },
+                        content = { paddingValues ->
+                            // Retrieve the intent data
+                            val noteId = intent.getIntExtra("NoteId", -1)  // Use the note ID
+                            val title = intent.getStringExtra("Title") ?: ""
+                            val subject = intent.getStringExtra("Subject") ?: ""
+                            val description = intent.getStringExtra("Description") ?: ""
 
-                            Column(modifier= Modifier.padding(paddingValues))
-                            {
-                                updateDataToDatabase(
-                                    LocalContext.current,
-                                    intent.getStringExtra("title")?: "",
-                                    intent.getStringExtra("subject")?: "",
-                                    intent.getStringExtra("description")?: "",
+                            Log.d("UpdateNote", "Received noteId: $noteId, title: $title, subject: $subject, description: $description")
 
+                            if (noteId == -1) {
+                                // Handle invalid noteId
+                                Toast.makeText(this, "Invalid Note ID", Toast.LENGTH_SHORT).show()
+                                finish()  // Close activity
+                            } else {
+                                Column(modifier = Modifier.padding(paddingValues)) {
+                                    updateDataToDatabase(
+                                        context = LocalContext.current,
+                                        noteId = noteId,
+                                        tName = title,
+                                        sUbject = subject,
+                                        dIscription = description
                                     )
-
-
+                                }
                             }
                         }
                     )
@@ -95,6 +109,7 @@ class UpdateNote : ComponentActivity() {
 @Composable
 fun updateDataToDatabase(
     context: Context,
+    noteId: Int, // Accept noteId to update the specific note
     tName: String,
     sUbject: String,
     dIscription: String
@@ -108,10 +123,8 @@ fun updateDataToDatabase(
             .fillMaxSize()
             .padding(all = 19.dp)
     ) {
+        val dbHandler: DBHandler = DBHandler(context)
 
-
-
-        var dbHandler: DBHandler = DBHandler(context)
         OutlinedTextField(
             value = title,
             onValueChange = { title = it },
@@ -153,17 +166,25 @@ fun updateDataToDatabase(
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(onClick = {
-                // Save action
-
-                dbHandler.updateNote(
-                    tName,
-                    title.text,
-                    subject.text,
-                    description.text
-                )
-                Toast.makeText(context, "Note Updated", Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, MainActivity::class.java)
-                context.startActivity(intent)
+                // Check for empty fields
+                if (title.text.isNotEmpty() && subject.text.isNotEmpty() && description.text.isNotEmpty()) {
+                    // Update the note using its ID
+                    val isUpdated = dbHandler.updateNote(
+                        noteId = noteId,
+                        newTitle = title.text,
+                        newSubject = subject.text,
+                        newDescription = description.text
+                    )
+                    if (isUpdated) {
+                        Toast.makeText(context, "Note Updated", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+                    } else {
+                        Toast.makeText(context, "Failed to Update Note", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                }
             }) {
                 Text(text = "Update", color = Color.White)
             }
@@ -178,5 +199,4 @@ fun updateDataToDatabase(
         }
     }
 }
-
 
