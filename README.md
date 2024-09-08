@@ -24,7 +24,7 @@ Welcome to the Notes App! This application is built using Kotlin, SQLite, and Je
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/notes-app.git
+    git clone https://github.com/VidushiSingh56/Noteslit.git
     ```
 
 2. **Open the project in Android Studio**.
