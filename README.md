@@ -11,9 +11,8 @@ Welcome to the Notes App! This application is built using Kotlin, SQLite, and Je
 
 
 ## CRUD Functions
-
-![Frame 2](https://github.com/user-attachments/assets/c7cf9951-b5a3-4fe5-845a-1a1b3fda4071)
-![Frame 3](https://github.com/user-attachments/assets/a36b802d-cbc4-4b01-8955-df660356ca15)
+![Frame 2](https://github.com/user-attachments/assets/1875b473-2462-4319-8dbe-3c7327e844dd)
+![Frame 3](https://github.com/user-attachments/assets/9cba6a37-8f6d-4272-8a8e-88791d1cc9a6)
 
 ## Technologies Used
 
